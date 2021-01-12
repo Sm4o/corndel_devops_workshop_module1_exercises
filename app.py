@@ -10,6 +10,11 @@ def home_page():
 
 @app.route('/films/list')
 def list_film_items():
+    """
+    Lists all films in a table
+    :param stars: to filter by stars value
+    :returns: renders html base.html template
+    """
     stars = request.values.get("stars", "")
 
     film_reviews = get_film_reviews(filter_stars=stars)
@@ -19,6 +24,26 @@ def list_film_items():
         headers=film_reviews[0].keys(),
         reviews=film_reviews,
     )
+
+
+@app.route('/films/submit', methods=['POST'])
+def submit_film_review():
+    """
+    Expects JSON form data like:
+    {
+        "film_name": "Film Name", 
+        "stars": 4
+    }
+
+    Stores record in file film_reviews.txt
+    """
+    data = request.form
+
+    print(data)
+
+    with open('film_reviews.txt', 'a') as f:
+        f.write(f"{data['film_name']}, {data['stars']}\n")
+        print('Written review to file')
 
 
 def get_film_reviews(filter_stars=None):
