@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+    <head>
+        <title>All Films</title>
+    </head>
+    <body>
+        <table>
+            <thead>
+                {% for header in headers %}
+                    <th>{{ header | capitalize }}</th>
+                {% endfor %}
+            </thead>
+            <tbody>
+                {% for review in reviews %}
+                    <tr>
+                        <td>{{ review.film | capitalize }}</td>
+                        <td>{{ review.stars }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
