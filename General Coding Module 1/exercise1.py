@@ -80,6 +80,9 @@ def calculate_goto_row(goto_row: str) -> int:
         return parameter_a - parameter_b
     elif operation == '/':
         return parameter_a / parameter_b
+    elif operation == '^':
+        print('Provoking a merge conflict')
+        return parameter_a ** parameter_b
 
 with open('General Coding Module 1/instructions_part4.txt', 'r') as f:
     instructions = f.read().splitlines()
