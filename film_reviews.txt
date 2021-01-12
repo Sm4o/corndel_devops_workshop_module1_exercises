@@ -2,3 +2,4 @@ gladiator, 5
 flubber, 1
 quensgambit, 4
 quens gambit, 4
+Frozen, 5

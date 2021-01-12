@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -10,7 +10,9 @@ def home_page():
 
 @app.route('/films/list')
 def list_film_items():
-    film_reviews = get_film_reviews()
+    stars = request.values.get("stars", "")
+
+    film_reviews = get_film_reviews(filter_stars=stars)
     print(film_reviews)
     return render_template(
         'base.html', 
@@ -19,15 +21,20 @@ def list_film_items():
     )
 
 
-def get_film_reviews():
+def get_film_reviews(filter_stars=None):
     film_reviews_list = [] 
     with open('film_reviews.txt', 'r') as f:
         film_reviews = f.read().splitlines()
 
         for review in film_reviews:
-            film_reviews_list.append({
-                'film': review.split(', ')[0], 
-                'stars': review.split(', ')[1],
-            })
+            film_name = review.split(', ')[0]
+            film_stars = review.split(', ')[1]
+            if filter_stars and film_stars != filter_stars: 
+                pass
+            else:
+                film_reviews_list.append({
+                    'film': film_name,
+                    'stars': film_stars, 
+                })
 
     return film_reviews_list
